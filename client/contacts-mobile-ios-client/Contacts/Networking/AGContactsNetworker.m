@@ -17,7 +17,7 @@
 
 #import "AGContactsNetworker.h"
 
-static NSString * const kAPIBaseURLString = @"<# URL of the Contacts application backend #>";
+static NSString * const kAPIBaseURLString = @"http://192.168.0.122:8080/jboss-contacts-mobile-picketlink-secured";
 
 @interface AGContactsNetworker ()
 
