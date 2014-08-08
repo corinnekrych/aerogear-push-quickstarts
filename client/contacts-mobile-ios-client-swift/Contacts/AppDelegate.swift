@@ -37,6 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSUserDefaults.standardUserDefaults().setObject(deviceToken, forKey: "deviceToken")
     }
     
+    func application(application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError!) {
+        // convenient store the "device token" for later retrieval
+        //NSUserDefaults.standardUserDefaults().setObject(deviceToken, forKey: "deviceToken")
+        println("ERROR::::\(error)")
+    }
+    
     func application(application: UIApplication!, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]!, fetchCompletionHandler completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         
         // ensure the user has logged in
