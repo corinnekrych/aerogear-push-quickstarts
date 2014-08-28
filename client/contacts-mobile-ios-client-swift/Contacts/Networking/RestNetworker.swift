@@ -39,18 +39,9 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
         self.session = NSURLSession(configuration: sessionConfig, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
     }
     
-    func GET(resource: String, parameters: AnyObject!, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
+    func GET(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resource))
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "GET"
-        
-        // serialize request
-        if (parameters != nil) {
-            let postData = NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
-            request.HTTPBody = postData
-        }
+        let request = newRequest(resource, "GET", parameters)
         
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
@@ -58,18 +49,8 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
         return task
     }
     
-    func POST(resource: String, parameters: AnyObject!, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
-        
-        let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resource))
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "POST"
-        
-        // serialize request
-        if parameters != nil {
-            let postData = NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
-            request.HTTPBody = postData
-        }
+    func POST(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
+        let request = newRequest(resource, "POST", parameters)
         
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
@@ -77,19 +58,9 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
         return task
     }
     
-    func PUT(resource: String, parameters: AnyObject!, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
+    func PUT(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resource))
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "PUT"
-        
-        // serialize request
-        if parameters != nil {
-            let postData = NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
-            request.HTTPBody = postData
-        }
-        
+        let request = newRequest(resource, "PUT", parameters)
         let str = NSString(data: request.HTTPBody, encoding: NSUTF8StringEncoding)
         
         let task = dataTaskWithRequest(request, completionHandler);
@@ -98,19 +69,9 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
         return task
     }
     
-    func DELETE(resource: String, parameters: AnyObject!, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
+    func DELETE(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resource))
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "DELETE"
-        
-        // serialize request
-        if parameters != nil {
-            let postData = NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
-            request.HTTPBody = postData
-        }
-        
+        let request = newRequest(resource, "DELETE", parameters)
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
         
@@ -151,5 +112,16 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
             }
             
             return task
+    }
+
+    func newRequest(resourceUrl: String, _ method: String, _ payload: AnyObject?) -> NSMutableURLRequest {
+        let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resourceUrl))
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = method
+        if let unwrapped: AnyObject = payload {
+            let postData = NSJSONSerialization.dataWithJSONObject(unwrapped, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
+            request.HTTPBody = postData
+        }
+        return request;
     }
 }
