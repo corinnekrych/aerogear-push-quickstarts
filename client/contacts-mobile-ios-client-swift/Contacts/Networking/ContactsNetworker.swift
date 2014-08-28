@@ -24,6 +24,7 @@ class ContactsNetworker: RestNetworker {
     // holds the singleton ContactsNetworker
     class var shared: ContactsNetworker {
         struct Static {
+            // Contacts backend base url. For example http://ip:port/jboss-contacts-mobile-picketlink-secured
             static let kAPIBaseURLString = "<# URL of the Contacts application backend #>";
             static let _instance = ContactsNetworker(serverURL: NSURL(string: kAPIBaseURLString).URLByAppendingPathComponent("/rest"))
             }
