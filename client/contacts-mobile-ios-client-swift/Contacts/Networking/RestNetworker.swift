@@ -41,7 +41,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
     
     func GET(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = newRequest(resource, "GET", parameters)
+        let request = newRequest(resource, method: "GET", payload: parameters)
         
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
@@ -50,7 +50,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
     }
     
     func POST(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
-        let request = newRequest(resource, "POST", parameters)
+        let request = newRequest(resource, method: "POST", payload: parameters)
         
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
@@ -60,7 +60,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
     
     func PUT(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = newRequest(resource, "PUT", parameters)
+        let request = newRequest(resource, method: "PUT", payload: parameters)
         let str = NSString(data: request.HTTPBody, encoding: NSUTF8StringEncoding)
         
         let task = dataTaskWithRequest(request, completionHandler);
@@ -71,7 +71,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
     
     func DELETE(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
-        let request = newRequest(resource, "DELETE", parameters)
+        let request = newRequest(resource, method: "DELETE", payload: parameters)
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
         
@@ -114,7 +114,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
             return task
     }
 
-    func newRequest(resourceUrl: String, _ method: String, _ payload: AnyObject?) -> NSMutableURLRequest {
+    func newRequest(resourceUrl: String, method: String, payload: AnyObject?) -> NSMutableURLRequest {
         let request = NSMutableURLRequest(URL: serverURL.URLByAppendingPathComponent(resourceUrl))
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = method
