@@ -40,25 +40,21 @@ Build and Deploy the Contacts
 -------------------------------
 
 ## Change Push Configuration
-
-In '_LoginViewController.swift_' modify the URL, variant and secret to match your AeroGear UnifiedPush server configuration. 
+All configurations for the application are located in [Info.plist](./Contacts/Info.plist). 
+The following entries require configuration:
+```xml
+<key>Backend URL</key>
+<string>http://ip:port/contacts-mobile-picketlink-secured</string>
+<key>Variant ID</key>
+<string>Replace with VariantID created in Unified Push Server</string>
+<key>Variant Secret</key>
+<string>Replace with Variant Secret created in Unified Push Server</string>
+<key>Unified Push Server URL</key>
+<string>http://ip:port/ag-push</string>
+```
 
 NOTE:
 You can copy/paste these settings from the [UnifiedPush Administration console](http://aerogear.org/docs/unifiedpush/ups_userguide/admin-ui/).
-
-```swift
-let registration = AGDeviceRegistration(serverURL: NSURL(string: "<# URL of the running AeroGear UnifiedPush Server #>"))
-...
-clientInfo.variantID = "<# Variant Id #>"
-clientInfo.variantSecret = "<# Variant Secret #>"
----
-```
-
-After the Push settings are configured, open '_ContactsNetworker.swift_' and modify the URL to match the path to the Contacts server backend.
-
-```swift
-static let kAPIBaseURLString = "<# URL of the Contacts application backend #>";
-```
 
 You can now build and run the application.
 

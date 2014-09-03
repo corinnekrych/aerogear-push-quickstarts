@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BackendURL</key>
+	<string>http://host:port/jboss-contacts-mobile-picketlink-secured</string>
+	<key>VariantID</key>
+	<string>Variant ID from UnifiedPush Server</string>
+	<key>VariantSecret</key>
+	<string>Variant Secret from UnifiedPush Server </string>
+	<key>UnifiedPushServerURL</key>
+	<string>http://host:port/ag-push</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
