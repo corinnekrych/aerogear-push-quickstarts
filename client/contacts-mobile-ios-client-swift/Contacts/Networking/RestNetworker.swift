@@ -61,7 +61,7 @@ class RestNetworker: NSObject, NSURLSessionDelegate {
     func PUT(resource: String, parameters: AnyObject?, completionHandler: ((NSURLResponse!, AnyObject!, NSError!) -> Void)!) -> NSURLSessionDataTask {
         
         let request = newRequest(resource, method: "PUT", payload: parameters)
-        let str = NSString(data: request.HTTPBody, encoding: NSUTF8StringEncoding)
+        let str = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
         
         let task = dataTaskWithRequest(request, completionHandler);
         task.resume()
