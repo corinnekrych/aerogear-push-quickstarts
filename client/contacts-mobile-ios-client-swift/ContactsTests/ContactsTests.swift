@@ -21,11 +21,22 @@ class ContactsTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testInfoPlistUnifiedPushServerURL() {
+        XCTAssertEqual("http://host:port/ag-push", NSBundle.mainBundle().objectForInfoDictionaryKey("UnifiedPushServerURL")! as String)
     }
-    
+
+    func testInfoPlistUnifiedVariantID() {
+        XCTAssertEqual("Variant ID from UnifiedPush Server", NSBundle.mainBundle().objectForInfoDictionaryKey("VariantID")! as String)
+    }
+
+    func testInfoPlistUnifiedVariantSecret() {
+        XCTAssertEqual("Variant Secret from UnifiedPush Server", NSBundle.mainBundle().objectForInfoDictionaryKey("VariantSecret")! as String)
+    }
+
+    func testInfoPlistBackendURL() {
+        XCTAssertEqual("http://host:port/jboss-contacts-mobile-picketlink-secured", NSBundle.mainBundle().objectForInfoDictionaryKey("BackendURL")! as String)
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {

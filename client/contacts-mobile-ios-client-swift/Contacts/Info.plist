@@ -7,7 +7,7 @@
 	<key>VariantID</key>
 	<string>Variant ID from UnifiedPush Server</string>
 	<key>VariantSecret</key>
-	<string>Variant Secret from UnifiedPush Server </string>
+	<string>Variant Secret from UnifiedPush Server</string>
 	<key>UnifiedPushServerURL</key>
 	<string>http://host:port/ag-push</string>
 	<key>CFBundleDevelopmentRegion</key>
