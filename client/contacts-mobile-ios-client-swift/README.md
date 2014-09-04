@@ -18,7 +18,7 @@ The application is written in [Swift](https://developer.apple.com/swift/) and us
 System requirements
 -------------------
 - iOS 8.X
-- Xcode version 6 Beta 6
+- Xcode version 6 Beta 7
 
 
 Pre-requisites
